@@ -7,9 +7,10 @@ def set_new_building_signs(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
         if flat.construction_year < 2015:
-            Flat.objects.get_or_create(new_building=False)
+            flat.new_building = False
         else:
-            Flat.objects.get_or_create(new_building=True)
+            flat.new_building = True
+        flat.save()
 
 
 class Migration(migrations.Migration):

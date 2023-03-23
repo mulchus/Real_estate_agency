@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Flat(models.Model):
@@ -73,9 +74,30 @@ class Flat(models.Model):
 
     new_building = models.BooleanField(
         'Новостройка ли',
-        db_index=True,
+        null=True,
         blank=True,
-        null=True)
+        db_index=True)
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
+class Claim(models.Model):
+    username = models.ForeignKey(
+        User,
+        verbose_name='Кто жаловался',
+        related_name='claims',
+        on_delete=models.CASCADE)
+
+    flat = models.ForeignKey(
+        Flat,
+        verbose_name='Квартира, на которую пожаловались',
+        related_name='flats',
+        on_delete=models.CASCADE)
+
+    claim_text = models.TextField(
+        verbose_name='Текст жалобы',
+        max_length=2000)
+
+    def __str__(self):
+        return f'{self.username}, {self.flat}'

@@ -77,6 +77,5 @@ class Flat(models.Model):
         blank=True,
         null=True)
 
-
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'

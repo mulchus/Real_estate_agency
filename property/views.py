@@ -27,6 +27,7 @@ def show_flats(request):
     town = request.GET.get('town')
     min_price = format_price(request.GET.get('min_price'))
     max_price = format_price(request.GET.get('max_price'))
+    liked_by = request.GET.get('liked_by')
     new_building = request.GET.get('new_building') == '1'
 
     flats = Flat.objects.all()

@@ -10,11 +10,12 @@ class FlatAdmin(admin.ModelAdmin):
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building',)
+    raw_id_fields = ('liked_by',)
 
 
 class ClaimAdmin(admin.ModelAdmin):
     search_fields = ('username', 'flat')
-    raw_id_fields = ("flat",)
+    raw_id_fields = ('flat',)
     list_display = ('username', 'flat', 'claim_text')
 
 

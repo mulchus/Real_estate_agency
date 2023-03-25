@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Flat
 from .models import Claim
+from .models import Owner
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -13,6 +14,12 @@ class FlatAdmin(admin.ModelAdmin):
     raw_id_fields = ('liked_by',)
 
 
+class OwnerAdmin(admin.ModelAdmin):
+    search_fields = ('owner', 'owner_pure_phone', 'flat')
+    raw_id_fields = ('flat',)
+    list_display = ('owner', 'owner_pure_phone')
+
+
 class ClaimAdmin(admin.ModelAdmin):
     search_fields = ('username', 'flat')
     raw_id_fields = ('flat',)
@@ -21,3 +28,4 @@ class ClaimAdmin(admin.ModelAdmin):
 
 admin.site.register(Flat, FlatAdmin)
 admin.site.register(Claim, ClaimAdmin)
+admin.site.register(Owner, OwnerAdmin)

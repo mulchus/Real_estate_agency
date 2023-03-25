@@ -5,7 +5,7 @@ from .models import Claim
 
 
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ('town', 'address', 'owner')
+    search_fields = ('town', 'address', 'owner', 'owners_phonenumber')
     readonly_fields = ['created_at']
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town', 'owners_phonenumber', 'owner_pure_phone')
     list_editable = ['new_building']

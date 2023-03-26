@@ -5,19 +5,38 @@ from .models import Claim
 from .models import Owner
 
 
+class OwnersInline(admin.TabularInline):
+    model = Owner.flat.through
+    raw_id_fields = ('flat', )
+    verbose_name = 'Связь с квартирами'
+
+
+class FlatsInline(admin.TabularInline):
+    model = Flat.owned_by.through
+    raw_id_fields = ('owner', )
+    verbose_name = 'Связь с людьми'
+
+#
+# class OwnerFlatAdmin(admin.ModelAdmin):
+#     raw_id_fields = ('owner', 'flat')
+
+
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ('town', 'address')  # , 'owner__owner')
+    search_fields = ['town', 'address']  # , 'owner__owner']
     readonly_fields = ['created_at']
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building',)
     raw_id_fields = ('liked_by',)
+    inlines = [OwnersInline, ]
 
 
 class OwnerAdmin(admin.ModelAdmin):
     search_fields = ['owner', 'flat__address', 'owner_pure_phone']
     raw_id_fields = ('flat',)
     list_display = ('owner', 'owner_pure_phone', 'get_flats')
+    inlines = [OwnersInline, ]
+    exclude = ('flat', )
 
     @staticmethod
     def get_flats(obj):

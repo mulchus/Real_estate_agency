@@ -6,10 +6,9 @@ from .models import Owner
 
 
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ('town', 'address', 'owner', 'owners_phonenumber')
+    search_fields = ('town', 'address')  # , 'owner__owner')
     readonly_fields = ['created_at']
-    list_display = ('address', 'price', 'new_building', 'construction_year', 'town', 'owners_phonenumber',
-                    'owner_pure_phone')
+    list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building',)
     raw_id_fields = ('liked_by',)
@@ -20,7 +19,8 @@ class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flat',)
     list_display = ('owner', 'owner_pure_phone', 'get_flats')
 
-    def get_flats(self, obj):
+    @staticmethod
+    def get_flats(obj):
         return ", ".join([flat.__str__() for flat in obj.flat.all()])
 
 

@@ -7,18 +7,14 @@ from .models import Owner
 
 class OwnersInline(admin.TabularInline):
     model = Owner.flat.through
-    raw_id_fields = ('flat', )
+    raw_id_fields = ('flat', 'owner')
     verbose_name = 'Связь с квартирами'
 
 
 class FlatsInline(admin.TabularInline):
-    model = Flat.owners.through
-    raw_id_fields = ('owner', )
+    model = Flat.owner_by.through
+    raw_id_fields = ('flat', 'owner')
     verbose_name = 'Связь с людьми'
-
-#
-# class OwnerFlatAdmin(admin.ModelAdmin):
-#     raw_id_fields = ('owner', 'flat')
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -27,8 +23,9 @@ class FlatAdmin(admin.ModelAdmin):
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building',)
-    raw_id_fields = ('liked_by',)
-    inlines = [OwnersInline, ]
+    raw_id_fields = ('liked_by', )
+    inlines = [FlatsInline, ]
+    # exclude = ('owner_by', )
 
 
 class OwnerAdmin(admin.ModelAdmin):
@@ -36,7 +33,7 @@ class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flat',)
     list_display = ('owner', 'owner_pure_phone', 'get_flats')
     inlines = [OwnersInline, ]
-    exclude = ('flat', )
+    # exclude = ('flat', )
 
     @staticmethod
     def get_flats(obj):

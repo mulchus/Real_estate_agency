@@ -87,7 +87,7 @@ class Owner(models.Model):
     flat = models.ManyToManyField(
         Flat,
         verbose_name='Квартиры в собственности',
-        related_name='owners',
+        related_name='owner_by',
         db_index=True)
 
     owner = models.CharField(
@@ -107,6 +107,9 @@ class Owner(models.Model):
         blank=True,
         db_index=True)
 
+    def __str__(self):
+        return f'{self.owner}'
+        # , {self.flat}'
 
 
 class Claim(models.Model):

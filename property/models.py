@@ -83,6 +83,13 @@ class Flat(models.Model):
 
 
 class Owner(models.Model):
+
+    flat = models.ManyToManyField(
+        Flat,
+        verbose_name='Квартиры в собственности',
+        related_name='owners',
+        db_index=True)
+
     owner = models.CharField(
         'ФИО владельца',
         max_length=200,
@@ -100,11 +107,6 @@ class Owner(models.Model):
         blank=True,
         db_index=True)
 
-    flat = models.ManyToManyField(
-        Flat,
-        verbose_name='Квартиры в собственности',
-        related_name='owners',
-        db_index=True)
 
 
 class Claim(models.Model):

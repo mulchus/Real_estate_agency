@@ -18,14 +18,13 @@ class FlatsInline(admin.TabularInline):
 
 
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ['town', 'address']  # , 'owner__owner']
+    search_fields = ['town', 'address']
     readonly_fields = ['created_at']
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building',)
     raw_id_fields = ('liked_by', )
     inlines = [FlatsInline, ]
-    # exclude = ('owner_by', )
 
 
 class OwnerAdmin(admin.ModelAdmin):
@@ -33,7 +32,6 @@ class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flat',)
     list_display = ('owner', 'owner_pure_phone', 'get_flats')
     inlines = [OwnersInline, ]
-    # exclude = ('flat', )
 
     @staticmethod
     def get_flats(obj):

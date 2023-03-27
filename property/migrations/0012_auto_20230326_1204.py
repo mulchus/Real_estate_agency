@@ -6,14 +6,9 @@ from django.db import migrations
 def link_owners_and_flats(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    # i = 1
     for owner in Owner.objects.all():
-        print(owner.id)
         owner.flat.set(Flat.objects.filter(owner=owner.owner, owner_pure_phone=owner.owner_pure_phone))
         owner.save()
-        # i += 1
-        # if i > 10:
-        #     break
 
 
 class Migration(migrations.Migration):

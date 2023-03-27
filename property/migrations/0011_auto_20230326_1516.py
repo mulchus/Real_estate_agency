@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='owner',
-            name='flat',
+            name='flats',
             field=models.ManyToManyField(db_index=True, related_name='owner_by', to='property.Flat', verbose_name='В собственности'),
         ),
     ]

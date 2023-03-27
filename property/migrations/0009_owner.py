@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
             name='Owner',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('owner', models.CharField(max_length=200, verbose_name='ФИО владельца', db_index=True)),
-                ('owners_phonenumber', models.CharField(max_length=20, verbose_name='Номер владельца', db_index=True)),
-                ('owner_pure_phone', phonenumber_field.modelfields.PhoneNumberField(
+                ('name', models.CharField(max_length=200, verbose_name='ФИО владельца', db_index=True)),
+                ('phonenumber', models.CharField(max_length=20, verbose_name='Номер владельца', db_index=True)),
+                ('pure_phonenumber', phonenumber_field.modelfields.PhoneNumberField(
                     blank=True, max_length=20, null=True, region=None, verbose_name='Нормализованный номер владельца',
                     db_index=True)),
-                ('flat', models.ManyToManyField(related_name='owner_by', to='property.Flat', verbose_name='В собственности')),
+                ('flats', models.ManyToManyField(db_index=True, related_name='owner_by', to='property.Flat', verbose_name='В собственности')),
             ],
         ),
     ]

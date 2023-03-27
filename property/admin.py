@@ -6,7 +6,7 @@ from .models import Owner
 
 
 class OwnersInline(admin.TabularInline):
-    model = Owner.flat.through
+    model = Owner.flats.through
     raw_id_fields = ('flat', 'owner')
     verbose_name = 'Связь с квартирами'
 
@@ -28,14 +28,14 @@ class FlatAdmin(admin.ModelAdmin):
 
 
 class OwnerAdmin(admin.ModelAdmin):
-    search_fields = ['owner', 'flat__address', 'owner_pure_phone']
-    raw_id_fields = ('flat',)
-    list_display = ('owner', 'owner_pure_phone', 'get_flats')
+    search_fields = ['name', 'flat__address', 'pure_phonenumber']
+    raw_id_fields = ('flats',)
+    list_display = ('name', 'pure_phonenumber', 'get_flats')
     inlines = [OwnersInline, ]
 
     @staticmethod
     def get_flats(obj):
-        return ", ".join([flat.__str__() for flat in obj.flat.all()])
+        return ", ".join([flat.__str__() for flat in obj.flats.all()])
 
 
 class ClaimAdmin(admin.ModelAdmin):

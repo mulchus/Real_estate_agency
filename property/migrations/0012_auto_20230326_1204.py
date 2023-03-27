@@ -7,7 +7,7 @@ def link_owners_and_flats(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     for owner in Owner.objects.all():
-        owner.flat.set(Flat.objects.filter(owner=owner.owner, owner_pure_phone=owner.owner_pure_phone))
+        owner.flats.set(Flat.objects.filter(owner=owner.name, owner_pure_phone=owner.pure_phonenumber))
         owner.save()
 
 

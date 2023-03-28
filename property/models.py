@@ -121,7 +121,7 @@ class Claim(models.Model):
     flat = models.ForeignKey(
         Flat,
         verbose_name='Квартира, на которую пожаловались',
-        related_name='flats',
+        related_name='claims',
         on_delete=models.CASCADE)
 
     claim_text = models.TextField(

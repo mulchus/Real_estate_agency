@@ -17,6 +17,7 @@ class FlatsInline(admin.TabularInline):
     verbose_name = 'Связь с людьми'
 
 
+@admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ['town', 'address']
     readonly_fields = ['created_at']
@@ -27,6 +28,7 @@ class FlatAdmin(admin.ModelAdmin):
     inlines = [FlatsInline, ]
 
 
+@admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
     search_fields = ['name', 'flat__address', 'pure_phonenumber']
     raw_id_fields = ('flats',)
@@ -38,12 +40,8 @@ class OwnerAdmin(admin.ModelAdmin):
         return ", ".join([flat.__str__() for flat in obj.flats.all()])
 
 
+@admin.register(Claim)
 class ClaimAdmin(admin.ModelAdmin):
     search_fields = ['username__username', 'flat__address']
     raw_id_fields = ('flat',)
     list_display = ('username', 'flat', 'claim_text')
-
-
-admin.site.register(Flat, FlatAdmin)
-admin.site.register(Claim, ClaimAdmin)
-admin.site.register(Owner, OwnerAdmin)

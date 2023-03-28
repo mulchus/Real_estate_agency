@@ -108,7 +108,7 @@ class Owner(models.Model):
         db_index=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Claim(models.Model):

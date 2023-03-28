@@ -12,7 +12,7 @@ class OwnersInline(admin.TabularInline):
 
 
 class FlatsInline(admin.TabularInline):
-    model = Flat.owner_by.through
+    model = Flat.owned_by.through
     raw_id_fields = ('flat', 'owner')
     verbose_name = 'Связь с людьми'
 

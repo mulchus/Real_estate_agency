@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('pure_phonenumber', phonenumber_field.modelfields.PhoneNumberField(
                     blank=True, max_length=20, null=True, region=None, verbose_name='Нормализованный номер владельца',
                     db_index=True)),
-                ('flats', models.ManyToManyField(db_index=True, related_name='owner_by', to='property.Flat', verbose_name='В собственности')),
+                ('flats', models.ManyToManyField(db_index=True, related_name='owned_by', to='property.Flat', verbose_name='В собственности')),
             ],
         ),
     ]
